@@ -1,0 +1,1414 @@
+/* Плавный скролл */
+html {
+  scroll-behavior: smooth;
+}
+/* 1. Устанавливаем единый отступ для всех секций при скролле */
+section, footer {
+  /* 70px — это примерная высота твоей шапки .header--scrolled */
+  scroll-margin-top: 70px; 
+}
+
+@media (max-width: 768px) {
+  section, footer { scroll-margin-top: 60px; }
+  
+}
+/* Переменные для цветов из макета */
+
+:root {
+  --primary-blue: #107FE8;
+  --primary-orange: #FFA45F;
+  --primary-r-orange: #FF834A;
+  --black: #000000;
+  --white: #ffffff;
+  --white_o: rgba(255, 255, 255, 0.80);
+  --main-font: "Google Sans", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body { 
+  margin: 0; 
+  font-family: var(--main-font);
+}
+body.no-scroll {
+  overflow: hidden;
+}
+/* 3. Стили заголовков------------------------------------------------------------------ */
+
+h1, h2, h3, h4 {
+  font-family: var(--main-font);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 { font-size: 50px; margin-bottom: 80px; }
+h2 { font-size: 36px; margin-bottom: 40px; }
+h3 { font-size: 24px; font-weight: 600; margin-bottom: 20px; }
+h4 { font-size: 18px; }
+p {font-size: 18px; color: #666; line-height: 1.3;}
+
+@media (max-width: 1024px) {
+  h1 { font-size: 40px; margin-bottom: 40px; }
+}
+@media (max-width: 768px) {
+  h1 { font-size: 34px; }
+  h2 { font-size: 28px; }
+}
+
+/* БАЗОВЫЙ КЛАСС КНОПКИ */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  
+  /* Стили как у твоего p */
+  font-family: var(--main-font);
+  font-size: 18px; 
+  line-height: 1.3;
+  font-weight: 500;
+}
+.btn--blue {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+.btn--orange-light {
+  background-color: #FFF0E5;
+  color: var(--primary-orange);
+}
+.btn--orange {
+  background-color: var(--primary-orange);
+  color: var(--white);
+}
+.btn:hover {
+  transform: translateY(-2px); /* Кнопка чуть подпрыгивает */
+  opacity: 0.9;
+}
+.btn--blue:hover {
+  background-color: var(--primary-orange);
+}
+@media (max-width: 768px) {
+  .btn--blue {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  }
+}
+
+.container {
+  max-width: 1920px; 
+  margin: 0 auto;     
+  padding: 0px 40px;   
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0px 20px; 
+  }
+}
+
+
+/* Шапка сайта------------------------------------------------------------------ */
+.header {
+  position: fixed; /* Делаем фиксированным с самого начала, чтобы не плыл макет */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 0;
+  z-index: 1000;
+  color: white;
+  transition: all 0.3s ease; /* Плавный переход */
+  background: transparent;
+}
+@media (max-width: 768px) {
+  .header { padding: 20px 0; }
+}
+.header__mobile-wrapper {
+    display: flex;
+    flex: 1;                 /* Занимает всё место между лого и бургером */
+    justify-content: center; /* Центрирует всё содержимое (меню + языки) */
+    align-items: center;
+}
+
+/* Класс, который добавляет JS при скролле */
+.header--scrolled {
+  padding: 15px 0;
+  height: 70px; /* Явно задаем высоту, чтобы она совпадала с scroll-margin-top */
+  background: rgba(16, 127, 232, 0.9);
+  backdrop-filter: blur(8px);
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+  display: flex;
+  align-items: center;
+}
+
+/* 2. Контейнер шапки */
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  color: var(--white);
+  font-size: 34px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.nav {
+  flex: 1;              /* Занимает всё пространство между лого и краем */
+  display: flex;
+  justify-content: center; /* Центрирует список внутри */
+}
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+}
+.nav__link {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 300;
+  opacity: 1.0;
+  transition: opacity 0.5s;
+}
+.nav__link:hover {
+  opacity: 1;
+  color: var(--primary-orange);
+}
+
+.nav__link.active {
+  color: var(--primary-orange); /* Твой фирменный оранжевый из WasserX */
+}
+
+.button {
+  background-color: var(--primary-blue);
+  padding: 10px 15px 10px 15px;
+  color: var(--white);
+  border-radius: 5px;
+  text-decoration: none;
+}
+.button:hover {
+  background-color: var(--primary-orange);
+  padding: 10px 15px 10px 15px;
+  color: var(--white);
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+
+
+
+
+/* Контейнер  */
+.lang-select {
+    position: relative;
+    color: var(--white);
+    font-size: 18px;
+}
+.lang-current {
+  color: var(--white);
+  font-size: 18px;
+  /*margin-right: 20px;*/
+  padding: 20px;
+}
+.lang-current a{ 
+    text-decoration: none;
+    color: var(--white);
+}
+
+/* Контейнер выпадушка, изначально не видима */
+.lang-list {
+    display: flex;
+    list-style: none;
+    display: none; 
+    position: absolute;
+    /*top: 100%;*/
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 4px;
+    /*box-shadow: none;*/
+    margin-top: 10px;
+    gap: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+.lang-select:hover .lang-list {
+display: flex;      /* Показ при наведении */
+}
+
+.lang-item a{
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+.lang-item a:hover{
+    opacity: 0.5;
+}
+
+/*.lang-item a{
+    text-decoration: none;
+}*/
+
+.lang-item.active {
+    color: var(--primary-orange);
+    font-weight: 600;
+    display: none;
+}
+@media (max-width: 1024px) {
+  /* ЯЗЫКИ В МОБИЛКЕ: прижимаем к низу */
+  .lang-select {
+    margin-top: auto; /* Магия flexbox: выталкивает блок в самый низ контейнера */
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .lang-current {
+    display: none; /* Скрываем текущий язык со стрелкой */
+  }
+
+  .lang-list {
+    display: flex;       /* Всегда показываем в мобильном меню */
+    position: static;    /* Убираем абсолютное позиционирование */
+    flex-direction: row; /* Выстраиваем в ряд */
+    justify-content: space-between;
+    gap: 20px;
+    background: transparent;
+    padding: 0;
+    list-style: none;
+    box-shadow: none; /* Убираем тень в мобилке */
+    border: none;
+  }
+
+  .lang-item a {
+    color: #fff !important; /* Убираем фиолетовый цвет */
+    text-decoration: none;  /* Убираем подчеркивание */
+    font-size: 18px;
+    /*opacity: 0.7;*/
+    transition: 0.3s;
+}
+
+/*  .lang-item {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 1;
+    font-size: 18px;
+  }*/
+
+  .lang-item.active {
+    display: block !important;
+    color: var(--primary-orange);
+    opacity: 0.5;
+    /*font-weight: 600;*/
+  }
+}
+
+
+
+/* --- Стили Бургера (общие) --- */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1001;
+}
+
+.burger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+/* Анимация бургера при открытии */
+.burger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+
+/* --- АДАПТИВ (до 1024px) --- */
+@media (max-width: 1024px) {
+  .burger {
+    display: flex;
+  }
+
+  .header__mobile-wrapper {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: var(--primary-blue);
+    padding: 80px 30px 30px; /* Большой отступ сверху под бургер и снизу под языки */
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: 0.4s ease;
+    z-index: 1000;
+  }
+
+
+  .header__mobile-wrapper.active {
+    right: 0;
+    box-shadow: 10px 0px 15px rgba(0,0,0,100);
+  }
+
+  .nav {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    box-shadow: 0 0px 0px rgba(0,0,0,0.0);
+  }
+
+  .nav__link {
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+
+/* Слайдер------------------------------------------------------------------ */
+.main_slider {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000; /* Резервный фон */
+}
+
+.main-slider__wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.main-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end; /* Твой оригинальный стиль */
+  padding-bottom: 0; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, visibility 1s;
+  background-size: cover;
+  background-position: center;
+}
+
+.main-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 5;
+}
+
+/* Стили контента (оставляем твои, просто добавляем z-index) */
+.main_slider__content {
+  position: relative;
+  z-index: 10;
+  max-width: 60%;
+  margin-bottom: 150px;
+  /* Анимация появления текста */
+  transform: translateY(20px);
+  transition: transform 0.8s ease-out 0.3s, opacity 0.8s ease-out 0.3s;
+  opacity: 0;
+}
+.main-slide.active .main_slider__content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .main_slider__content { max-width: 90%; }
+}
+.main_slider__title {
+  color: var(--white);
+  font-size: 70px;
+  line-height: 1.1;
+  margin-bottom: 60px;
+  font-weight: 600;
+}
+@media (max-width: 1024px) {
+  .main_slider__title { font-size: 50px; }
+}
+@media (max-width: 768px) {
+  .main_slider__title { font-size: 36px; }
+}
+.main_slider__subtitle {
+  color: var(--white);
+}
+.main_slider__pagination {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+/* Пагинация — оставляем твои стили без изменений */
+.main_slider__pagination {
+  z-index: 20;
+}
+
+.main_dot {
+  width: 8px; /* Базовая ширина всегда 8px */
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  
+  /* Используем transform вместо width для идеальной плавности */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.4s ease, 
+              width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Точка трансформации — центр, чтобы росла в обе стороны. 
+     Если хочешь, чтобы росла вправо — ставь left. */
+  transform-origin: center; 
+}
+/* Состояние активной точки */
+.main_dot.active {
+  width: 30px; /* Мы все же меняем ширину, но добавляем will-change для видеокарты */
+  background: var(--white);
+  will-change: width; /* Подсказываем браузеру подготовить видеокарту */
+}
+/* Добавим легкий эффект при наведении на неактивные точки */
+.main_dot:not(.active):hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+
+
+/* О нас ------------------------------------------------------------------ */
+.about {
+  border-bottom: 1px solid #E0E0E0;
+}
+.about__container {
+  display: flex; 
+  min-height: 30vh;
+  padding: 100px 40px;
+  margin: 0 auto;
+  gap: 100px;
+  align-items: stretch;
+}
+@media (max-width: 1024px) {
+  .about__container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 60px 20px;
+  }
+}
+.about__content {
+  flex: 80%;
+}
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  gap: 70px;
+}
+@media (max-width: 768px) {
+  /* Заставляем блоки в "О нас" встать друг под другом */
+  .about__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* Убеждаемся, что сами блоки не шире экрана */
+  .about__item {
+    width: 100%;
+  }
+}
+.about__info {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+}
+.about__icon {
+  width: 54px;
+  height: 54px;
+}
+.about__image {
+  flex: 35%;  
+  position: relative;
+  margin-left: 100px;
+  /* Важно: задаем высоту или соотношение сторон */
+  min-height: 450px; 
+  overflow: hidden;
+}
+.about__slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.about__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /*visibility: hidden;*/
+  transition: opacity 1.1s ease-in-out;
+  z-index: 1;
+}
+.about__slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+.about__image img {
+  width: 100%;       
+  height: 100%;      
+  object-fit: cover; 
+}
+/*@media (max-width: 1024px) {
+  .about__image {
+    flex: none;
+    width: 100%;
+    margin-left: 0;
+  }
+}*/
+/*.about__pagination {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;         
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}*/
+/* Пагинация (используем твои стили, добавляем только позиционирование) */
+.about__pagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px; /* Базовая ширина всегда 8px */
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  
+  /* Используем transform вместо width для идеальной плавности */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.4s ease, 
+              width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Точка трансформации — центр, чтобы росла в обе стороны. 
+     Если хочешь, чтобы росла вправо — ставь left. */
+  transform-origin: center; 
+}
+/* Состояние активной точки */
+.dot.active {
+  width: 30px; /* Мы все же меняем ширину, но добавляем will-change для видеокарты */
+  background: var(--white);
+  will-change: width; /* Подсказываем браузеру подготовить видеокарту */
+}
+
+/* Добавим легкий эффект при наведении на неактивные точки */
+.dot:not(.active):hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+/* Адаптив для мобилок */
+@media (max-width: 1024px) {
+  .about__image {
+    margin-left: 0;
+    width: 100%;
+    /* На мобилках делаем высоту поменьше, но фиксированную для слайдера */
+    min-height: 300px; 
+    aspect-ratio: 4 / 3; 
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Состояния интерактивности (связка маркера и карточки) */
+.interactive-marker.is-hover, 
+.interactive-marker.is-active {
+    background: var(--primary-blue) !important;
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
+}
+
+.interactive-card.is-hover, 
+.interactive-card.is-active {
+    /*border: 2px solid var(--primary-blue);*/
+}
+
+.interactive-card.is-hover img, 
+.interactive-card.is-active img {
+    transform: scale(1.08);
+}
+
+/* Показываем текст при hover или active */
+.interactive-card.is-hover .hidden-text, 
+.interactive-card.is-active .hidden-text {
+    max-height: 300px;
+    opacity: 1;
+}
+
+/* Изменяем градиент при активации, чтобы текст читался */
+.interactive-card.is-hover::after,
+.interactive-card.is-active::after
+ {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+}
+
+/* --- ОБЩИЕ СТИЛИ (Твой код) --- */
+.pivot-block, .drip-block {
+    padding: 100px 0;
+    background: var(--white);
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.pivot-container, .drip-container {
+    display: flex;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 40px;
+    gap: 80px;
+    align-items: center;
+}
+
+.drip-container { flex-direction: row-reverse; }
+.pivot-content, .drip-content { flex: 500px 0 0; }
+
+.pivot-list, .drip-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin-bottom: 40px;
+    gap: 10px;
+}
+
+.pivot-actions, .drip-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.pivot-visual, .drip-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pivot-main, .drip-main {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 15 / 7;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.pivot-main img, .drip-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pivot-grid, .drip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.pivot-grid-item, .drip-grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    aspect-ratio: 3 / 4;
+    transition: border 0.3s ease;
+    /*border: 2px solid transparent;*/
+}
+
+.pivot-grid-item img, .drip-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pivot-grid-item::after, .drip-grid-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+.grid-content-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    padding: 30px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    pointer-events: none;
+}
+
+.grid-content-box h3 { color: #fff; transition: transform 0.4s ease; }
+
+.hidden-text {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease, opacity 0.7s ease;
+}
+
+.hidden-text p { margin-top: 15px; color: rgba(255, 255, 255, 0.9); line-height: 1.5; }
+
+.pivot-marker, .drip-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--primary-orange);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border: 4px solid #fff;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.pivot-tooltip {
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 120px;
+    max-width: 220px;
+    white-space: normal;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 100;
+}
+
+.pivot-marker:hover .pivot-tooltip, .drip-marker:hover .pivot-tooltip { opacity: 1; visibility: visible; }
+
+/* Координаты */
+.marker-1 { top: 37%; left: 11%; }
+.marker-2 { top: 59%; left: 14.9%; }
+.marker-3 { top: 31.5%; left: 65.5%; }
+.drip-marker-1 { top: 63%; left: 45%; }
+.drip-marker-2 { top: 77%; left: 60%; }
+.drip-marker-3 { top: 50.5%; left: 76.5%; }
+
+
+@media (max-width: 1600px) {
+
+    /*.pivot-container, .drip-container 
+    { flex-direction: column; gap: 40px; padding: 0px 40px; }*/
+    .pivot-container, .drip-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.pivot-content, .drip-content { flex: 0; }
+
+
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 1024px) {
+
+
+/*.pivot-grid-item, .drip-grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    aspect-ratio: 7 / 4;
+    transition: border 0.3s ease;
+  
+}*/
+
+
+
+.interactive-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            aspect-ratio: 2 / 3;}
+
+  /* Чтобы активный тултип был виден сразу */
+    .interactive-marker.is-active .pivot-tooltip {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+
+    /* Фикс для первого маркера (marker-left), чтобы не уходил за экран */
+    .marker-left.is-active .pivot-tooltip {
+        left: 0 !important;
+        transform: translateX(0) !important;
+        margin-left: 10px; /* небольшой отступ от края экрана */
+    }
+
+    .pivot-visual, .drip-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.interactive-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            aspect-ratio: 8 / 3;}
+
+  .pivot-marker.is-active .pivot-tooltip, .drip-marker.is-active .pivot-tooltip { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+    .pivot-main { overflow: visible !important; }
+    .pivot-block, .drip-block {
+    padding: 0 !important;
+}
+
+
+
+    .pivot-container, .drip-container { flex-direction: column; gap: 40px; padding: 60px 20px; }
+    .pivot-content, .drip-content { flex: none; width: 100%; }
+
+    /* МОБИЛЬНЫЙ СЛАЙДЕР */
+    .pivot-grid, .drip-grid {
+            display: flex !important;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            /*padding: 10px 0 30px;*/
+            scrollbar-width: none;
+        }
+    .pivot-grid::-webkit-scrollbar, .drip-grid::-webkit-scrollbar { display: none; }
+        
+
+    .hidden-text { max-height: 500px; opacity: 1; }
+
+
+    .pivot-actions, .drip-actions { flex-direction: column; text-align: center; }
+    .pivot-marker, .drip-marker { width: 26px; height: 26px; border-width: 2px; }
+    .pivot-marker span, .drip-marker span { font-size: 11px; }
+    .pivot-tooltip { max-width: 150px; font-size: 12px; display:none; }
+
+    .pivot-grid-item::after, .drip-grid-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%);
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+
+}
+
+@media (max-width: 768px) {
+
+/*.pivot-grid-item, .drip-grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    aspect-ratio: 7 / 4;
+    transition: border 0.3s ease;
+  
+}*/
+
+
+
+.interactive-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            aspect-ratio: 2 / 3;}
+
+  /* Чтобы активный тултип был виден сразу */
+    .interactive-marker.is-active .pivot-tooltip {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+
+    /* Фикс для первого маркера (marker-left), чтобы не уходил за экран */
+    .marker-left.is-active .pivot-tooltip {
+        left: 0 !important;
+        transform: translateX(0) !important;
+        margin-left: 10px; /* небольшой отступ от края экрана */
+    }
+
+    .pivot-visual, .drip-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.interactive-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            aspect-ratio: 2 / 3;}
+
+  .pivot-marker.is-active .pivot-tooltip, .drip-marker.is-active .pivot-tooltip { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+    .pivot-main { overflow: visible !important; }
+    .pivot-block, .drip-block {
+    padding: 0 !important;
+}
+
+
+
+    .pivot-container, .drip-container { flex-direction: column; gap: 40px; padding: 60px 20px; }
+    .pivot-content, .drip-content { flex: none; width: 100%; }
+
+    /* МОБИЛЬНЫЙ СЛАЙДЕР */
+    .pivot-grid, .drip-grid {
+            display: flex !important;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            /*padding: 10px 0 30px;*/
+            scrollbar-width: none;
+        }
+    .pivot-grid::-webkit-scrollbar, .drip-grid::-webkit-scrollbar { display: none; }
+        
+
+    .hidden-text { max-height: 500px; opacity: 1; }
+
+
+    .pivot-actions, .drip-actions { flex-direction: column; text-align: center; }
+    .pivot-marker, .drip-marker { width: 26px; height: 26px; border-width: 2px; }
+    .pivot-marker span, .drip-marker span { font-size: 11px; }
+    .pivot-tooltip { max-width: 150px; font-size: 12px; display:none; }
+
+    .pivot-grid-item::after, .drip-grid-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%);
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+}
+
+
+
+
+
+
+
+
+
+/* Блок Наши проекты -------------------------------------------------- */
+/*.projects-section {
+  padding: 100px 0;
+  background-color: #0076E3; 
+  background-image: url('../img/project.jpg'); 
+  background-repeat: no-repeat;  
+  background-position: center;   
+  background-size: cover;        
+  background-blend-mode: luminosity; 
+  color: var(--white);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}*/
+
+.projects-section {
+  padding: 100px 0;
+  position: relative;
+  /* Заменяем однотонный цвет на градиент из Figma */
+  background: linear-gradient(to bottom, #107FE8, #00389F); 
+  color: var(--white);
+  overflow: hidden;
+  z-index: 1;
+}
+.projects-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  background-image: url('../img/project.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  
+  /* Настройки прозрачности и смешивания */
+  opacity: 0.1; /* 10% как в Figma, или оставь 0.2 если нужно поярче */
+  background-blend-mode: luminosity; 
+  /*filter: blur(5px);*/
+
+  z-index: -1; /* Картинка остается под текстом */
+}
+@media (max-width: 768px) {
+  /* Заставляем блоки в "О нас" встать друг под другом */
+  .projects-section, .projects-section {
+    padding: 40px 0 0 0;
+  }
+}
+@media (max-width: 1024px) {
+  /* Заставляем блоки в "О нас" встать друг под другом */
+  .projects-section, .projects-section {
+    padding: 60px 0 60px 0 ;
+  }
+}
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0px;
+}
+.projects-title {
+  color: var(--white);
+}
+.projects-nav {
+  display: flex;
+  gap: 15px;
+}
+.nav-arrow {
+  background: transparent;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.3s;
+  padding: 5px;
+}
+.nav-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.projects-grid {
+  /*display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;*/
+  display: block; /* Swiper сам управляет расположением */
+}
+
+.projectsSwiper {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-item {
+  height: auto; /* Позволяем карточкам подстраиваться под контент */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Фикс для стрелок, чтобы они не были прозрачными при отключении */
+.nav-arrow.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.project-img {
+  width: 100%;
+  /*height: 420px;*/
+  border-radius: 4px; 
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.project-list {
+  display: flex;             /* Включаем Flexbox */
+  flex-direction: column;    /* Выстраиваем пункты вертикально */
+  list-style: none;
+  margin-bottom: 40px;
+  gap: 10px;                 /* Теперь это сработает! */
+}
+.project-list li p {
+  color: var(--white_o);
+}
+
+
+
+
+
+
+
+
+/* ФУТЕР ------------------------------------------------------------------ */
+.footer {
+  position: relative;
+  padding: 100px 0 0 0;
+  color: var(--white);
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+              url('../img/footer.jpg') no-repeat center center;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+  .footer {
+  padding: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .footer {
+  padding: 0;
+  }
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 80px;
+  gap:30px;
+}
+@media (max-width: 1024px) {
+  .footer__container {
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    gap: 30px;
+    padding-bottom: 60px;
+    padding-top: 60px;
+  }
+}
+@media (max-width: 768px) {
+  .footer__container {
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    gap: 30px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+}
+
+.footer__brand .logo span {
+  color: var(--white); 
+}
+
+.footer__contacts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 80px;
+  flex: 0 0 75%;
+}
+@media (max-width: 768px) {
+
+  .footer__brand {
+  display: none; 
+}
+
+  .footer__contacts {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/*.footer__col h4 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--white);}*/
+.footer__col p {
+  /* font-size: 16px; */
+  color: rgba(255, 255, 255, 0.4); 
+  margin-bottom: 12px;
+   line-height: 0.8; 
+
+}
+@media (max-width: 1400px) {
+  
+  .footer__col p {
+  /* font-size: 16px; */
+  color: rgba(255, 255, 255, 0.4); 
+  margin-bottom: 12px;
+   line-height: 1.2; }
+}
+
+.footer__col a {
+  color: var(--primary-blue); 
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer__col a:hover {
+  color: var(--primary-orange);
+}
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 0;
+}
+.footer__bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .footer__bottom-flex {
+  flex-direction: column;
+  align-items: flex-start;
+  }
+
+  .footer__col p {
+  /* font-size: 16px; */
+  color: rgba(255, 255, 255, 0.4); 
+  margin-bottom: 12px;
+   line-height: 0.8; }
+}
+.footer__bottom p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0;
+}
+
+/* АНИМАЦИЯ ПРИ СКРОЛЛЕ ---------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(0px);
+  transition: all 0.8s ease-out;
+}
+
+
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Специфические фиксы для Swiper */
+.heroSwiper .swiper-slide {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Оранжевые полоски пагинации */
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 4px !important;
+  opacity: 1 !important;
+  transition: width 0.4s ease, background 0.4s ease !important;
+}
+
+.swiper-pagination-bullet-active {
+  width: 30px !important;
+  background: var(--white) !important;
+}
+
+/*.about-dots-pagination .swiper-pagination-bullet-active {
+  background: var(--primary-blue) !important;
+}*/
+
+/* Позиционирование точек в Hero */
+.main-hero-pagination {
+  bottom: 40px !important;
+  right: 40px !important;
+  left: auto !important;
+  width: auto !important;
+}
+
+/* Анимация контента внутри слайдов */
+.main_slider__content {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.swiper-slide-active .main_slider__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+/** {
+  outline: 1px solid red !important;
+}*/

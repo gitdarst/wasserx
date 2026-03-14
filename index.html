@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <title>WasserX</title>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__container">
+    <a href="#" class="logo">WasserX</a>
+
+    <div class="header__mobile-wrapper" id="mobile-menu">
+      <nav class="nav">
+        <ul class="nav__list">
+          <li><a href="#about" class="nav__link">О нас</a></li>
+          <li><a href="#pivot" class="nav__link">Дождевальные машины</a></li>
+          <li><a href="#drip" class="nav__link">Капельный полив</a></li>
+          <li><a href="#projects" class="nav__link">Наши проекты</a></li>
+          <li><a href="#contacts" class="nav__link">Контакты</a></li>
+          <li><a href="docs/pr_wasserx.pdf" target="_blank" class="btn btn--orange">Презентация</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-select">
+        <span class="lang-current"><a href="#">Рус</a></span>
+        <ul class="lang-list">
+        <li class="lang-item active" data-lang="Рус"><a href="#">Рус</a></li>
+        <li class="lang-item" data-lang="Каз"><a href="#">Каз</a></li>
+        <li class="lang-item" data-lang="Eng"><a href="#">Eng</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="burger" id="burger-btn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="main_slider swiper heroSwiper">
+    <div class="swiper-wrapper">
+      
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/slide_5.jpg');">
+        <div class="container">
+          <div class="main_slider__content">
+            <h1 class="main_slider__title">Системы удаленного управления поливом</h1>
+            <p class="main_slider__subtitle">Наши решения управляют поливом через контроллер, компьютер и телефон</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/slide.jpg');">
+        <div class="container">
+          <div class="main_slider__content">
+            <h1 class="main_slider__title">Умное управление полями</h1>
+            <p class="main_slider__subtitle">Автоматизируем процессы, чтобы вы могли контролировать полив из любой точки мира</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/slide_2.jpg');">
+        <div class="container">
+          <div class="main_slider__content">
+            <h1 class="main_slider__title">Эффективность и экономия</h1>
+            <p class="main_slider__subtitle">Оптимизируем использование воды и снижаем ваши затраты на каждом гектаре</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="swiper-pagination main-hero-pagination"></div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container about__container">
+      <div class="about__content">
+        <h1>О нас</h1>
+        <div class="about__grid">
+          <div class="about__info">
+            <img src="img/skill.svg" alt="icon" class="about__icon">
+            <div class="about__text">
+              <h3>6 лет опыта</h3>
+              <p>Мы, команда профессионалов, уже более 6 лет занимаемся разработкой систем удаленного управления дождевальными машинами и капельным орошением для сельскохозяйственных полей. Наши решения направлены на повышение эффективности использования водных ресурсов, улучшение урожайности и сокращение затрат для фермеров.</p>
+            </div>
+          </div>
+
+          <div class="about__info">
+            <img src="img/location.svg" alt="icon" class="about__icon">
+            <div class="about__text">
+              <h3>Разработано в Казахстане</h3>
+              <p>Мы гордимся тем, что имеем собственное производство, расположенное в Казахстане, что позволяет нам учитывать специфику местных условий и потребностей.</p>
+            </div>
+          </div>
+
+          <div class="about__info">
+            <img src="img/goal.svg" alt="icon" class="about__icon">
+            <div class="about__text">
+              <h3>Цель</h3>
+              <p>Наша цель — предоставлять лучшие решения систем удаленного управления. Мы используем передовые технологии, проверенные временем материалы и тщательно продумываем каждый этап производства, чтобы обеспечить высокое качество и надёжность наших систем.</p>
+            </div>
+          </div>
+
+          <div class="about__info">
+            <img src="img/reliability.svg" alt="icon" class="about__icon">
+            <div class="about__text">
+              <h3>Надежность</h3>
+              <p>С нами вы получаете надёжного партнёра, готового поддерживать вас на всех этапах внедрения и эксплуатации.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about__image swiper aboutSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="img/about_2.jpg" alt="Орошение 1"></div> 
+          <div class="swiper-slide"><img src="img/about_3.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_9.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_11.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_6.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_5.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_10.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_7.jpg" alt="Орошение 3"></div>
+          <div class="swiper-slide"><img src="img/about_1.jpg" alt="Орошение 2"></div>
+          
+
+        </div>
+        <div class="swiper-pagination about-dots-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+<section id="pivot" class="pivot-block reveal">
+  <div class="pivot-container">
+    <div class="pivot-content">
+      <h1>Система для дождевальных машин</h1>
+      <div class="pivot-description">
+        <h3>Система удаленного управления включает возможности:</h3>
+        <ul class="pivot-list">
+          <li><p>— Движение машиной.</p></li>
+          <li><p>— Мониторинг состояния машины и датчиков.</p></li>
+          <li><p>— Позиционирование машины на поле.</p></li>
+          <li><p>— IT систему.</p></li>
+        </ul>
+      </div>
+      <div class="pivot-actions">
+        <a href="docs/pr_wasserx.pdf" target="_blank" class="btn btn--blue">Презентация</a>
+        <a href="docs/app_description.pdf" target="_blank" class="btn btn--orange-light">Описание приложения</a>
+      </div>
+    </div>
+
+    <div class="pivot-visual">
+      <div class="pivot-main">
+        <img src="img/pivot.jpg" alt="Pivot Main">
+        <div class="pivot-marker marker-1 marker-left interactive-marker is-active" data-ref="p1">
+          <span>1</span>
+          <div class="pivot-tooltip">Дождевальная машина</div>
+        </div>
+        <div class="pivot-marker marker-2 interactive-marker" data-ref="p2">
+          <span>2</span>
+          <div class="pivot-tooltip">Шкаф автоматики</div>
+        </div>
+        <div class="pivot-marker marker-3 interactive-marker" data-ref="p3">
+          <span>3</span>
+          <div class="pivot-tooltip">Удаленное управление</div>
+        </div>
+      </div>
+      
+      <div class="pivot-grid slider-container">
+        <div class="pivot-grid-item interactive-card is-active" data-ref="p1">
+          <img src="img/pivot_1.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>Дождевальная машина</h3>
+            <div class="hidden-text">
+              <p>Это установка для орошения полей, в которую мы внедряем цифровую систему для удаленного управления и мониторинга работы и датчиков через компьютер и телефон.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pivot-grid-item interactive-card" data-ref="p2">
+          <img src="img/pivot_2.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>Шкаф автоматики</h3>
+            <div class="hidden-text">
+              <p>Мы устанавливаем на каждую дождевальную машину: шкаф автоматики и устройство для организации беспроводной сети. С помощью 16 жильного кабеля подключаемся к существующим цепям управления пивота, не нарушая его штатную работу.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pivot-grid-item interactive-card" data-ref="p3">
+          <img src="img/pivot_3.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>Удаленное управление</h3>
+            <div class="hidden-text">
+              <p>Через приложение WasserX вы дистанционно управляете дождевальными машинами, а также контролируете состояние машины, давление в системе и показания полевых датчиков.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="drip" class="drip-block reveal">
+  <div class="drip-container">
+    <div class="drip-content">
+      <h1>Система для капельного полива</h1>
+      <div class="drip-description">
+        <h3>Система удаленного управления включает возможности:</h3>
+        <ul class="drip-list">
+          <li><p>— Переключения клапанов полива и полную автоматизацию полива согласно проекту.</p></li>
+          <li><p>— Общий радиус покрытия поля до 4х км. Возможное увеличение покрытия за счет репиторов.</p></li>
+          <li><p>— Одно RTU подключает от 1 до 4х клапанов полива, от 1 до 4х реле давления.</p></li>
+          <li><p>— RTU включает автономное питания от батареи до 8 мес. Универсальное зарядное устройство для любых условий подзарядки в офисе или авто.</p></li>
+        </ul>
+      </div>
+      <div class="drip-actions">
+        <a href="docs/pr_wasserx.pdf" target="_blank" class="btn btn--blue">Презентация</a>
+      </div>
+    </div>
+
+    <div class="drip-visual">
+      <div class="drip-main">
+        <img src="img/drip.jpg" alt="Drip Main">
+        <div class="drip-marker drip-marker-1 interactive-marker is-active" data-ref="d1">
+          <span>1</span>
+          <div class="pivot-tooltip">RTU (радиомодуль)</div>
+        </div>
+        <div class="drip-marker drip-marker-2 interactive-marker" data-ref="d2">
+          <span>2</span>
+          <div class="pivot-tooltip">Клапаны полива</div>
+        </div>
+        <div class="drip-marker drip-marker-3 interactive-marker" data-ref="d3">
+          <span>3</span>
+          <div class="pivot-tooltip">Контроллер</div>
+        </div>
+      </div>
+
+      <div class="drip-grid slider-container">
+        <div class="drip-grid-item interactive-card is-active" data-ref="d1">
+          <img src="img/drip_2.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>RTU модуль</h3>
+            <div class="hidden-text">
+              <p>Беспроводная передача данных на большие расстояния с минимальным энергопотреблением.</p>
+            </div>
+          </div>
+        </div>
+        <div class="drip-grid-item interactive-card" data-ref="d2">
+          <img src="img/drip_1.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>Клапаны полива</h3>
+            <div class="hidden-text">
+              <p>Клапаны для полива подключены к RTU. На всех клапанах установлен режим AUTO, переключение на режим открыть и закрыть передается по радиосигналу.</p>
+            </div>
+          </div>
+        </div>
+        <div class="drip-grid-item interactive-card" data-ref="d3">
+          <img src="img/drip_3.jpg" alt="">
+          <div class="grid-content-box">
+            <h3>Центральный контроллер</h3>
+            <div class="hidden-text">
+              <p>Контроллер управления с доступом в Интернет. К нему подключены все RTU. Управление поливом и клапанами осуществляется через контроллер, ПК или телефон с помощью системы DISPATCH. Централизованно можно управлять поливом множеством распределенных полей по региону.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects-section reveal">
+  <div class="container">
+    <div class="projects-header">
+      <h1 class="projects-title">Наши проекты</h1>
+      <div class="projects-nav">
+        <button class="nav-arrow project-prev">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </button>
+        <button class="nav-arrow project-next">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper projectsSwiper">
+      <div class="swiper-wrapper">
+        
+        <div class="swiper-slide project-item">
+          <div class="project-img"><img src="img/project_1.jpg" alt="Колжат"></div>
+          <h3>Колжат</h3>
+          <ul class="project-list">
+            <li><p>— Поле Колжат, 50км от границы с Китаем.</p></li>
+            <li><p>— Размер поля 140га.</p></li>
+            <li><p>— Культура - Люцерна.</p></li>
+            <li><p>— Имеет 5 дождевальных машин HARVEST и 2 AFKO, подключенных к удаленному управлению.</p></li>
+          </ul>
+        </div>
+
+        <div class="swiper-slide project-item">
+          <div class="project-img"><img src="img/project_2.jpg" alt="Сорбулак"></div>
+          <h3>Поле вблизи Сорбулак</h3>
+          <ul class="project-list">
+            <li><p>— Поле находится в 50км от Алматы.</p></li>
+            <li><p>— Размер поля 140га.</p></li>
+            <li><p>— Имеет 8 дождевальных машин HARVEST, подключенных к удаленному управлению.</p></li>
+          </ul>
+        </div>
+
+        <div class="swiper-slide project-item">
+          <div class="project-img"><img src="img/project_3.jpg" alt="Будан"></div>
+          <h3>Будан</h3>
+          <ul class="project-list">
+            <li><p>— Поле Будан, 100км от Алматы.</p></li>
+            <li><p>— Размер поля 120га.</p></li>
+            <li><p>— Культура - Кукуруза.</p></li>
+            <li><p>— Имеет 5 фильтр станций, на каждой один четырехканальный радиомодуль. Контроллер управления установлен на одной из фильтр станций. Питание всех устройств от солнечной панели или аккумуляторных батарей.</p></li>
+          </ul>
+        </div>
+
+        <div class="swiper-slide project-item">
+          <div class="project-img"><img src="img/project_4.jpg" alt="Жаркент"></div>
+          <h3>Жаркент</h3>
+          <ul class="project-list">
+            <li><p>— Поле расположено около Жаркента.</p></li>
+            <li><p>— Культура - Кукуруза.</p></li>
+            <li><p>— Размер поля 127га.</p></li>
+            <li><p>— Имеет 27 гидрантов на каждом из которых установлены один двухканальный радиомодуль. Контроллер управления установлен на насосной станции. Питание контроллера от сети электропитания, питание радиомодуля от батареи.</p></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contacts" class="footer">
+  <div class="container footer__container">
+    <div class="footer__brand">
+      <a href="#" class="logo">W<span>asserX</span></a>
+    </div>
+    
+    <div class="footer__contacts">
+      <div class="footer__col">
+        <h3>Алматы</h3>
+        <p>Республика Казахстан, г. Алматы</p>
+        <p>Whatsapp: <a href="https://wa.me/77472274903">+7 747 227 49 03</a></p>
+        <p>E-mail: <a href="mailto:egulyarenko@bk.ru">egulyarenko@bk.ru</a></p>
+      </div>
+
+      <div class="footer__col">
+        <h3>Астана</h3>
+        <p>Республика Казахстан, г. Астана</p>
+        <p>Whatsapp: <a href="https://wa.me/77056204704">+7 705 620 47 04</a></p>
+        <p>E-mail: <a href="mailto:drach_artm@mail.ru">drach_artm@mail.ru</a></p>
+      </div>
+
+      <div class="footer__col">
+        <h3>Германия</h3>
+        <p>Германия, г. Штутгард</p>
+        <p>Whatsapp: <a href="https://wa.me/4915510608101">+49 15510 608101</a></p>
+        <p>E-mail: <a href="mailto:r_scc@mail.ru">r_scc@mail.ru</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-flex">
+      <p>WasserX © 2019-2026, Все права защищены.</p>
+      <p>wasserx.dispatch.kz</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
